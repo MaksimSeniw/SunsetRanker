@@ -19,9 +19,9 @@ app.use(cors({
     origin: process.env.CORS_ORIGIN || '*'
 }));
 
-const limiter = rateLimit({ //Maximum requests someone can do in 15 min(100)
+const limiter = rateLimit({ //Maximum requests someone can do in 15 min(10000)
     windowMs: 15 * 60 * 1000,
-    max: 100
+    max: 10000
 });
 app.use(limiter);
 app.use(morgan('dev'));
