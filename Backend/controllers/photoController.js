@@ -65,7 +65,13 @@ exports.getTopPhotos = async (req, res) => {
       FROM "Ratings"
       WHERE "Ratings"."photoId" = "Photo"."id"
     ) >= 1`),
-    order: [[literal('averageRating'), 'DESC']],
+    order: [
+      [literal(`(
+        SELECT AVG(score)
+        FROM "Ratings"
+        WHERE "Ratings"."photoId" = "Photo"."id"
+      )`), 'DESC']
+    ],
     limit: 5
   });
 
