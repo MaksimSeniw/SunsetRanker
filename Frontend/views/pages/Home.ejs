@@ -1,0 +1,37 @@
+<%- include ('../partials/navbar') %>
+<main class="gallery-container">
+    <h1 class="page-title">☀️ Top 5 Rated Sunsets</h1>
+        <ul class="sunsets-list">
+           <% photos.forEach(photo => { %>
+  <li class="sunset-card">
+    <img src="<%= photo.filePath %>" alt="Sunset: <%= photo.title %>" class="sunset-image">
+    <div class="card-content">
+      <h3 class="sunset-title">
+        <i class="fas fa-sun"></i> 
+        <!-- When home is called photo is also called, photo is an array that is defined by GetTopPhotos in photoController, it contains all attributes of the photos it has selected -->
+        <!-- These attributes can be seen below being called -->
+        <%= photo.title %>
+            </h3>
+            <p class="upload-date">
+                <i class="fas fa-globe"></i>
+                Location: <strong><%= photo.location %></strong>
+            </p>
+            <% if (photo.get('averageRating') !== null) { %>
+            <div class="current-rating">
+                <i class="fas fa-star"></i>
+                Average Rating: <strong><%= parseFloat(photo.get('averageRating')).toFixed(1) %>/5</strong>
+            </div>
+            <% } %>
+            <p class="upload-date">
+                <i class="fas fa-wine-bottle"></i>
+                Recommended Accompaniment: <strong><%= photo.matchedBeer %></strong>
+            </p>
+            <p class="upload-date">
+                <i class="fas fa-calendar"></i>
+                Uploaded on: <strong><%= new Date(photo.createdAt).toLocaleString() %></strong>
+            </p>
+            </div>
+         </li>
+        <% }) %>
+        </ul>
+</main>

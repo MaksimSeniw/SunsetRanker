@@ -1,0 +1,45 @@
+<%- include ('../partials/navbar') %>
+<main>
+    <div class="register-container">
+        <div class="register-card">
+            <h1>Register</h1>
+            <!-- Displays an error message if one occured -->
+            <% if (typeof error !== 'undefined') { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+                <% } %>
+            <form action="/api/auth/register" method="POST" class="register-form">
+                <!-- Just a POST form that creates a new user in the DB, all fields are required-->
+                <div class="input-group">
+                    <label for="username"><i class="fas fa-user"></i></label>
+                    <input type="text" name="username" placeholder="Username" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="firstName"><i class="fas fa-id-card"></i></label>
+                    <input type="text" name="firstName" placeholder="First Name" id="firstName" required>
+                </div>
+                <div class="input-group">
+                    <label for="lastName"><i class="fas fa-id-card"></i></label>
+                    <input type="text" name="lastName" placeholder="Last Name" id="lastName" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i></label>
+                    <input type="password" name="password" placeholder="Password" id="password" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="favoriteBeer"><i class="fas fa-glass-cheers"></i></label>
+                    <input type="text" name="favoriteBeer" placeholder="Favorite Beer" id="favoriteBeer" required>
+                </div>
+                
+                <input type="submit" value="Register" class="submit-btn">
+                
+                <div class="login-link">
+                    Already have an account? <a href="/login">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

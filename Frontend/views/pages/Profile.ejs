@@ -1,0 +1,36 @@
+<%- include ('../partials/navbar') %>
+<main>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <!-- Just displaying simple user info -->
+            <h2 class="profile-username"><%= username %></h2>
+            <div class="profile-beer">
+                <strong>First Name:</strong> <%= firstName %>
+            </div>
+            <div class="profile-beer">
+                <strong>Last Name:</strong> <%= lastName %>
+            </div>
+            <div class="profile-beer">
+                <strong>Favorite Beer:</strong> <%= favoriteBeer %>
+            </div>
+            <div class="profile-beer">
+                <strong>Date Created:</strong> <%= createdAt %>
+            </div>
+
+            <div class="button-container">
+                <a href="/editprofile" class="edit-btn">
+                    Edit Profile
+                </a>
+                <form id="deleteForm" action="/api/users/delete" method="POST" onsubmit="return confirm('Are you sure?');">
+                    <!-- POST method to remove the user, I tried using the DELETE method but I kept running to errors -->
+                    <button type="submit" class="delete-btn">
+                        <i class="fas fa-trash"></i> Delete Profile
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

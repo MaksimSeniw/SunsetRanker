@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset Ranker</title>
+    <link href="/views/partials/style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+
+        <% if (user) { %>
+            <nav>
+            <ul id="menu">
+                <li><a href="/home" class="active">Home</a></li>
+                <li><a href="/new" class="active">New</a></li>
+                <li><a href="/upload" class="active">Upload</a></li>
+                <li><a href="/profile" class="active">Profile</a></li>
+            </ul>
+            </nav>
+            
+            <div class="name-container">
+                <a href="/api/auth/logout" style="text-decoration: none;">
+                    <div class="name-display">Logout</div>
+                </a>
+            </div>
+
+        <% } else { %>
+            <nav>
+            <ul id="menu">
+                <li><a href="/home" class="active">Home</a></li>
+            </ul>
+            </nav>
+            
+            <div class="name-container">
+                <a href="/login" style="text-decoration: none;">
+                    <div class="name-display">Login</div>
+                </a>
+            </div>
+        <% } %>
+    </header>
+
+    <script>
+        const menuLinks = document.querySelectorAll('#menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                menuLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

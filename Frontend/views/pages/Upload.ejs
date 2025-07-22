@@ -1,0 +1,36 @@
+<%- include ('../partials/navbar') %>
+<main>
+    <div class="register-container">
+        <div class="register-card">
+            <h1>Upload a Sunset</h1>
+            <!-- Displaying an error message if needed -->
+            <% if (typeof error !== 'undefined') { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+                <% } %>
+            <form class="register-form" action="/api/photos/upload" method="POST" enctype="multipart/form-data">
+                <!-- Posting an image to the DB with the required attributes -->
+                <div class="input-group">
+                    <label for="title"><i class="fas fa-sun"></i></label>
+                    <input type="text" id="title" name="title" placeholder="Enter Sunset Title" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="location"><i class="fas fa-map-marker-alt"></i></label>
+                    <input type="text" id="location" name="location" placeholder="Enter Location" required>
+                </div>
+                <div class="input-group">
+                    <label for="image"><i class="fas fa-camera"></i></label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Upload Sunset</button>
+            </form>
+            
+            <div class="login-link">
+                <a href="/Home">View Top Sunsets</a>
+            </div>
+        </div>
+    </div>
+</main>

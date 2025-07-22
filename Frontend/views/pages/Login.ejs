@@ -1,0 +1,32 @@
+<%- include ('../partials/navbar') %>
+<main>
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Login</h1>
+            <% if (typeof error !== 'undefined') { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+                <% } %>
+            <form action="/api/auth/login" method="post" class="login-form">
+                <!-- A simple post form that sends info to the login function in authController -->
+                <div class="input-group">
+                    <label for="username"><i class="fas fa-user"></i></label>
+                    <input type="text" name="username" placeholder="Username" id="username" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i></label>
+                    <input type="password" name="password" placeholder="Password" id="password" required>
+                </div>
+                
+                <input type="submit" value="Login" class="submit-btn">
+                
+                <div class="register-link">
+                    Don't have an account? <a href="/register">Register</a>
+                    <!-- Redirect -->
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

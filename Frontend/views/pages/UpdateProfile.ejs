@@ -1,0 +1,36 @@
+<%- include ('../partials/navbar') %>
+<main>
+    <div class="edit-container">
+        <div class="edit-card">
+            <h1>Edit Profile</h1>
+            <form action="/api/users/editprofile" method="POST">
+                <!-- Just another POST form, fields can be left blank and not be updated.  -->
+                <div class="form-group">
+                    <label for="favoriteBeer" class="form-label">
+                        <i class="fas fa-glass-cheers"></i>
+                    </label>
+                    <input type="text" name="favoriteBeer" placeholder="Favorite Beer" id="favoriteBeer" class="form-input"> 
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-user"></i>
+                    </label>
+                    <input type="text" name="username" placeholder="Username" id="username" class="form-input"> 
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                    </label>
+                    <input type="password" name="password" placeholder="Password" id="password" class="form-input">
+                </div>
+
+                <input type="submit" value="Update Profile" class="submit-btn">
+            </form>
+            <div class="login-link">
+                    <a href="/profile">Go Back?</a>
+            </div>
+        </div>
+    </div>
+</main>

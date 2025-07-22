@@ -1,0 +1,55 @@
+<%- include ('../partials/navbar') %>
+<main class="gallery-container">
+    <h1 class="page-title">☀️ 10 Most Recent Sunsets</h1>
+    <!-- This displays a message depending on if the user just uploaded a photo, just rated a photo, or attempted to rerate a photo. -->
+    <% if (message) { %>
+    <div class="success-message">
+        <%= message %>
+    </div>
+    <% } %>
+        <ul class="sunsets-list">
+            <% photos.forEach(photo => { %>
+                <li class="sunset-card">
+                    <img src="<%= photo.filePath %>" alt="Sunset: <%= photo.title %>" class="sunset-image">
+                    <!-- This is essentially exactly the same as the Home page but it uses getNewPhotos instead of getTopPhotos for the photo array, additionally it contains a post form for ranking -->
+                    <div class="card-content">
+                        <h3 class="sunset-title">
+                            <i class="fas fa-sun"></i>
+                            <%= photo.title %>
+                        </h3>
+                        <p class="upload-date">
+                            <i class="fas fa-globe"></i>
+                            Location: <strong><%= photo.location %></strong>
+                        </p>
+
+                        <% if (photo.averageRating) { %>
+                            <div class="current-rating">
+                                <i class="fas fa-star"></i>
+                                Average Rating: <strong><%= photo.averageRating.toFixed(1) %>/5</strong>
+                            </div>
+                        <% } %>
+                        <p class="upload-date">
+                            <i class="fas fa-wine-bottle"></i>
+                            Recommended Accompaniment: <strong><%= photo.matchedBeer %></strong>
+                        </p>
+                        <p class="upload-date">
+                            <i class="fas fa-calendar"></i>
+                            Uploaded on: <strong><%= new Date(photo.createdAt).toLocaleString() %></strong>
+                        </p>
+
+                        <div class="rating-section">
+                            <label class="rating-label">Rate this sunset:</label>
+                            <form action="api/ratings/<%= photo.id %>" method="POST" class="rating-form">
+                                <!-- POST form for rating, it sends the photoID and userID without the user knowing as those are already store and do not need to be put in/selected by the user -->
+                                <input type="hidden" name="photoId" value="<%= photo.id %>">
+                                <input type="hidden" name="userId" value="<%= user?.id %>">
+                                <% for (let i = 1; i <= 5; i++) { %>
+                                    <button type="submit" name="score" value="<%= i %>" aria-label="Rate <%= i %> out of 5 stars">★</button>
+                                <% } %>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+</main>
