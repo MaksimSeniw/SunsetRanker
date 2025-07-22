@@ -45,8 +45,8 @@ exports.getTopPhotos = async (req, res) => {
           [
             literal(`(
               SELECT AVG(score)
-              FROM Ratings
-              WHERE Ratings.photoId = Photo.id 
+              FROM ratings
+              WHERE ratings.photoId = Photo.id 
             )`),
             'averageRating'
           ],
@@ -54,7 +54,7 @@ exports.getTopPhotos = async (req, res) => {
             literal(`(
               SELECT COUNT(*)
               FROM Ratings
-              WHERE Ratings.photoId = Photo.id 
+              WHERE ratings.photoId = Photo.id 
             )`),
             'ratingCount'
           ]
@@ -62,8 +62,8 @@ exports.getTopPhotos = async (req, res) => {
       },
       where: literal(`(
         SELECT COUNT(*)
-        FROM Ratings
-        WHERE Ratings.photoId = Photo.id
+        FROM ratings
+        WHERE ratings.photoId = Photo.id
       ) >= 1`),
       order: [[literal('averageRating'), 'DESC']],
       limit: 5
