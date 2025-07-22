@@ -33,41 +33,41 @@ exports.uploadPhoto = async (req, res) => {
 
 exports.getTopPhotos = async (req, res) => {
   try {
-    const photos = await Photo.findAll({
+  const photos = await Photo.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'username']
+      }
+    ],
+    attributes: {
       include: [
-        {
-          model: User,
-          attributes: ['id', 'username']
-        }
-      ],
-      attributes: { //Getting top five photos, avging rating and matching that rating with the correct photo
-        include: [
-          [
-            literal(`(
-              SELECT AVG(score)
-              FROM ratings
-              WHERE ratings.photoId = Photo.id 
-            )`),
-            'averageRating'
-          ],
-          [
-            literal(`(
-              SELECT COUNT(*)
-              FROM Ratings
-              WHERE ratings.photoId = Photo.id 
-            )`),
-            'ratingCount'
-          ]
+        [
+          literal(`(
+            SELECT AVG(score)
+            FROM "Ratings"
+            WHERE "Ratings"."photoId" = "Photo"."id"
+          )`),
+          'averageRating'
+        ],
+        [
+          literal(`(
+            SELECT COUNT(*)
+            FROM "Ratings"
+            WHERE "Ratings"."photoId" = "Photo"."id"
+          )`),
+          'ratingCount'
         ]
-      },
-      where: literal(`(
-        SELECT COUNT(*)
-        FROM ratings
-        WHERE ratings.photoId = Photo.id
-      ) >= 1`),
-      order: [[literal('averageRating'), 'DESC']],
-      limit: 5
-    });
+      ]
+    },
+    where: literal(`(
+      SELECT COUNT(*)
+      FROM "Ratings"
+      WHERE "Ratings"."photoId" = "Photo"."id"
+    ) >= 1`),
+    order: [[literal('averageRating'), 'DESC']],
+    limit: 5
+  });
 
     res.render('pages/Home', { photos });
   } catch (err) {
