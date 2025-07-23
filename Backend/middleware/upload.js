@@ -18,6 +18,13 @@ const multerStorage = multer.memoryStorage();
 const upload = multer({
   storage: multerStorage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true); // Accept file
+    } else {
+      cb(new Error('Invalid file type'), false); // Reject file
+    }
+  },
 });
 
 const uploadToGCS = async (req, res, next) => {

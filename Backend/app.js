@@ -11,6 +11,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const photoController = require('./controllers/photoController');
 
+app.set('trust proxy', true);
 
 const app = express();
 
