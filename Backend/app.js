@@ -15,6 +15,14 @@ const app = express();
 
 app.set('trust proxy', true);
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https://storage.googleapis.com"],
+    },
+  })
+);
 
 app.use(helmet());
 app.use(cors({
