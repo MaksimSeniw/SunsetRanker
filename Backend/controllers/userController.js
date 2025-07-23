@@ -1,4 +1,4 @@
-const { User, Photo } = require('../models');
+const { User, Photo, Rating } = require('../models');
 const bcrypt = require('bcrypt');
 
 exports.getProfile = async (req, res) => {
@@ -62,7 +62,8 @@ exports.deleteAccount = async (req, res) => {
     }
 
 
-  const photos = await Photo.findAll({ where: { UserId: userId } });
+    const photos = await Photo.findAll({ where: { UserId: userId } });
+    await Rating.destroy({ where: { userId: userId } });
 
     await Photo.destroy({ where: { UserId: userId } });
 
