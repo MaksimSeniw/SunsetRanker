@@ -20,6 +20,8 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       imgSrc: ["'self'", "data:", "https://storage.googleapis.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      // Add other directives as needed
     },
   })
 );
