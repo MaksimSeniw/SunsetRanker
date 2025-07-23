@@ -7,6 +7,9 @@ const storage = new Storage({
   credentials: JSON.parse(process.env.GCS_KEY_JSON),
 });
 
+const credentials = JSON.parse(process.env.GCS_KEY_JSON);
+console.log(credentials.private_key);
+
 const bucket = storage.bucket('sunset-photo-uploads');
 
 module.exports = bucket;
