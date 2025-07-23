@@ -2,13 +2,14 @@ const { Storage } = require('@google-cloud/storage');
 
 const serviceAccount = JSON.parse(process.env.GCS_KEY_JSON);
 
-const storage = new Storage({
-  projectId: process.env.GCP_PROJECT_ID,
-  credentials: JSON.parse(process.env.GCS_KEY_JSON),
-});
+const rawKey = JSON.parse(process.env.GCS_KEY_JSON);
 
-const credentials = JSON.parse(process.env.GCS_KEY_JSON);
-console.log(credentials.private_key);
+rawKey.private_key = rawKey.private_key.replace(/\\n/g, '\n');
+
+const storage = new Storage({
+  projectId: rawKey.project_id,
+  credentials: rawKey,
+});
 
 const bucket = storage.bucket('sunset-photo-uploads');
 
