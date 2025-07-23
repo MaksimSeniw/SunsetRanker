@@ -7,7 +7,7 @@ const Rating = db.Rating;
 const { fn, col, literal } = require('sequelize');
 
 const getColors = require('get-image-colors');
-const BeerColorMatcher = require('./beerColorMatcher');
+const BeerColorMatcher = require('./beerController');
 const tinycolor = require('tinycolor2');
 
 const axios = require('axios');
