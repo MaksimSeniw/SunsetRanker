@@ -8,6 +8,7 @@ const { fn, col, literal } = require('sequelize');
 
 const getColors = require('get-image-colors');
 const BeerColorMatcher = require('./beerColorMatcher');
+const tinycolor = require('tinycolor2');
 
 const axios = require('axios');
 const tmp = require('tmp');
