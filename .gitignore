@@ -2,7 +2,14 @@
 # Compiled class file
 *.class
 
+# Ignore all env files in any subdirectory
+*.env
+**/*.env
 .env
+.env.local
+sunsetranker-*.json
+
+**/node_modules/
 
 # Log file
 *.log

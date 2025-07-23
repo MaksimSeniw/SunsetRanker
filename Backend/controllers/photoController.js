@@ -9,25 +9,49 @@ const { fn, col, literal } = require('sequelize');
 const getColors = require('get-image-colors');
 const tinycolor = require('tinycolor2');
 
+
+const axios = require('axios');
+const tmp = require('tmp');
+const fs = require('fs');
+const { promisify } = require('util');
+
+const tmpFile = promisify(tmp.file);
+const writeFile = promisify(fs.writeFile);
+
 exports.uploadPhoto = async (req, res) => {
   try {
-    const photo = await Photo.create({
-      filePath: req.file.path,
-      userId: req.userId,
-      title: req.body.title, //Uploading photo into sql with corresponding attributes
-      location: req.body.location
-    });
-    const colors = await getColors(req.file.path); 
-    const dominantColor = colors[0].hex(); //Used for matching the beer
-    const beerMatcher = new BeerColorMatcher();
-    
-    photo.matchedBeer = beerMatcher.match(dominantColor); //Updating the matched beer of the photo
-    await photo.save();
-    
-  return res.redirect(`/new?message=A+good+beer+for+your+sunset+is+${encodeURIComponent(photo.matchedBeer)}+!`); //Redirecting with matched beer
+    const gcsUrl = req.file.gcsUrl;
 
+    // Download the image from GCS temporarily so we can extract colors
+    const response = await axios.get(gcsUrl, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(response.data, 'binary');
+
+    const tmpFilePath = await tmpFile();
+    await writeFile(tmpFilePath, buffer);
+
+    const colors = await getColors(tmpFilePath);
+    const dominantColor = colors[0].hex();
+
+    const beerMatcher = new BeerColorMatcher();
+    const matchedBeer = beerMatcher.match(dominantColor);
+
+    const photo = await Photo.create({
+      filePath: gcsUrl, // ✅ GCS URL saved to DB
+      userId: req.userId,
+      title: req.body.title,
+      location: req.body.location,
+      matchedBeer,
+    });
+
+    return res.redirect(
+      `/new?message=A+good+beer+for+your+sunset+is+${encodeURIComponent(photo.matchedBeer)}+!`
+    );
   } catch (err) {
-    res.status(500).render('pages/Upload', { error: 'Upload failed', details: err.message });
+    console.error('Upload error:', err);
+    res.status(500).render('pages/Upload', {
+      error: 'Upload failed',
+      details: err.message,
+    });
   }
 };
 
