@@ -19,19 +19,13 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      imgSrc: [
-        "'self'", 
-        "data:",
-        "https://storage.googleapis.com",
-        "https://*.googleapis.com" // Wildcard for all Google Storage buckets
-      ],
+      imgSrc: ["'self'", "data:", "https://storage.googleapis.com", "https://*.googleapis.com"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      // Keep other directives as needed
+      // Add other directives as needed
     },
   })
 );
 
-app.use(helmet());
 app.use(cors({
     origin: process.env.CORS_ORIGIN || '*'
 }));
