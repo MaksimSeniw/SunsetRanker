@@ -1,9 +1,14 @@
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 
+// ✅ Decode base64 service account key
+const raw = Buffer.from(process.env.GCS_KEY_JSON, 'base64').toString('utf-8');
+const credentials = JSON.parse(raw);
+credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+
 const storage = new Storage({
-  projectId: process.env.GCP_PROJECT_ID, // e.g. 'sunsetranker'
-  credentials: JSON.parse(process.env.GCS_KEY_JSON), // full JSON key as env var string
+  projectId: credentials.project_id,
+  credentials,
 });
 
 const bucket = storage.bucket(process.env.GCS_BUCKET_NAME); // e.g. 'sunset-photo-uploads'

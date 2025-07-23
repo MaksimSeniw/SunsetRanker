@@ -1,14 +1,15 @@
 const { Storage } = require('@google-cloud/storage');
 
-const decoded = Buffer.from(process.env.GCS_KEY_B64, 'base64').toString('utf-8');
+const raw = Buffer.from(process.env.GCS_KEY_JSON, 'base64').toString('utf-8');
+const credentials = JSON.parse(raw);
 
-const credentials = JSON.parse(decoded);
+credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
 
 const storage = new Storage({
   projectId: credentials.project_id,
   credentials,
 });
 
-const bucket = storage.bucket(process.env.GCS_BUCKET_NAME);
+const bucket = storage.bucket('sunset-photo-uploads');
 
 module.exports = bucket;
