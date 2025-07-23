@@ -60,52 +60,59 @@ exports.uploadPhoto = async (req, res) => {
 
 exports.getTopPhotos = async (req, res) => {
   try {
-  const photos = await Photo.findAll({
-    include: [
-      {
-        model: User,
-        attributes: ['id', 'username']
-      }
-    ],
-    attributes: {
+    const photos = await Photo.findAll({
       include: [
-        [
-          literal(`(
-            SELECT AVG(score)
-            FROM "Ratings"
-            WHERE "Ratings"."photoId" = "Photo"."id"
-          )`),
-          'averageRating'
-        ],
-        [
-          literal(`(
-            SELECT COUNT(*)
-            FROM "Ratings"
-            WHERE "Ratings"."photoId" = "Photo"."id"
-          )`),
-          'ratingCount'
+        {
+          model: User,
+          attributes: ['id', 'username']
+        }
+      ],
+      attributes: {
+        include: [
+          [
+            literal(`(
+              SELECT AVG(score)
+              FROM "Ratings"
+              WHERE "Ratings"."photoId" = "Photo"."id"
+            )`),
+            'averageRating'
+          ],
+          [
+            literal(`(
+              SELECT COUNT(*)
+              FROM "Ratings"
+              WHERE "Ratings"."photoId" = "Photo"."id"
+            )`),
+            'ratingCount'
+          ]
         ]
-      ]
-    },
-    where: literal(`(
-      SELECT COUNT(*)
-      FROM "Ratings"
-      WHERE "Ratings"."photoId" = "Photo"."id"
-    ) >= 1`),
-    order: [
-      [literal(`(
-        SELECT AVG(score)
+      },
+      where: literal(`(
+        SELECT COUNT(*)
         FROM "Ratings"
         WHERE "Ratings"."photoId" = "Photo"."id"
-      )`), 'DESC']
-    ],
-    limit: 5
-  });
+      ) >= 1`),
+      order: [
+        [literal(`(
+          SELECT AVG(score)
+          FROM "Ratings"
+          WHERE "Ratings"."photoId" = "Photo"."id"
+        )`), 'DESC']
+      ],
+      limit: 5
+    });
 
-    res.render('pages/Home', { photos });
+    res.render('pages/Home', {
+      user: req.session.user || null,
+      photos
+    });
   } catch (err) {
     console.error('Failed to fetch top rated photos:', err);
-    res.status(500).render('pages/Home', { error: 'Failed to get top rated photos', photos: [] });
+    res.status(500).render('pages/Home', {
+      error: 'Failed to get top rated photos',
+      user: req.session.user || null,
+      photos: []
+    });
   }
 };
 

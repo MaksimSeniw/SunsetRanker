@@ -66,13 +66,9 @@ const viewsPath = path.join(__dirname, '../Frontend/views');//Setting the path
 console.log('EJS views directory set to:', viewsPath); 
 app.set('views', viewsPath);
 
-app.get('/', photoController.getTopPhotos, (req, res) => {
-    res.render('pages/Home', { user: req.session.user, photos });
-});
+app.get('/', photoController.getTopPhotos);
 
-app.get('/home', photoController.getTopPhotos, (req, res) => {
-    res.render('pages/Home', { user: req.session.user, photos }); //Routes
-});
+app.get('/home', photoController.getTopPhotos);
 
 app.get('/login', (req, res) => {
     res.render('pages/Login');
