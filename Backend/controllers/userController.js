@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Photo } = require('../models');
 const bcrypt = require('bcrypt');
 
 exports.getProfile = async (req, res) => {
@@ -60,6 +60,9 @@ exports.deleteAccount = async (req, res) => {
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized: missing user ID' });
     }
+
+
+  const photos = await Photo.findAll({ where: { UserId: userId } });
 
     await Photo.destroy({ where: { UserId: userId } });
 
