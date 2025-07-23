@@ -28,7 +28,9 @@ exports.uploadPhoto = async (req, res) => {
     const tmpFilePath = await tmpFile();
     await writeFile(tmpFilePath, buffer);
 
-    const colors = await getColors(tmpFilePath, { type: 'image/png' });
+    const mimeType = req.file.mimetype || 'image/png'; 
+
+    const colors = await getColors(tmpFilePath, { type: mimeType });
     const dominantColor = colors[0].hex();
 
     const beerMatcher = new BeerColorMatcher();
