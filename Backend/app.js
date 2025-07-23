@@ -19,9 +19,14 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https://storage.googleapis.com"],
+      imgSrc: [
+        "'self'", 
+        "data:",
+        "https://storage.googleapis.com",
+        "https://*.googleapis.com" // Wildcard for all Google Storage buckets
+      ],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      // Add other directives as needed
+      // Keep other directives as needed
     },
   })
 );
