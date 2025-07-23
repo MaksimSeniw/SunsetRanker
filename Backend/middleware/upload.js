@@ -43,20 +43,15 @@ const uploadToGCS = async (req, res, next) => {
     next(err);
   });
 
-  blobStream.on('finish', async () => {
-    try {
-      const [url] = await blob.getSignedUrl({
-        action: 'read',
-        expires: Date.now() + 60 * 60 * 1000, // 1 hour
-      });
-      req.file.gcsUrl = url;
-      req.file.gcsUrl = `https://storage.googleapis.com/${bucket.name}/${gcsFileName}`;
-      next();
-    } catch (err) {
-      console.error('Error making file public:', err);
-      next(err);
-    }
-  });
+blobStream.on('finish', async () => {
+  try {
+    req.file.gcsUrl = `https://storage.googleapis.com/${bucket.name}/${gcsFileName}`;
+    next();
+  } catch (err) {
+    console.error('Error setting file URL:', err);
+    next(err);
+  }
+});
 
   blobStream.end(req.file.buffer);
 };
