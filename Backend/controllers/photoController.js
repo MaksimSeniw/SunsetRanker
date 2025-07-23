@@ -153,87 +153,123 @@ class MatchingStrategy {
   }
 }
 
+const between = (value, min, max, inclusive = true) => 
+  inclusive ? value >= min && value <= max : value > min && value < max;
+
 class AcePerryRoseCiderStrategy extends MatchingStrategy {
   getName() { return 'Ace Perry Rosé Cider'; }
-  matches({ h, s, l }) { return (h >= 340 || h < 15) && s > 0.25 && l > 0.6; }
+  matches({ h, s, l }) {
+    return (h >= 340 || h < 15) && s > 0.25 && l > 0.6;
+  }
 }
 
 class GuinnessStrategy extends MatchingStrategy {
   getName() { return 'Guinness'; }
-  matches({ l }) { return l < 0.12; }
+  matches({ l }) {
+    return l <= 0.12;
+  }
 }
 
 class DeschutesPorterStrategy extends MatchingStrategy {
   getName() { return 'Deschutes Black Butte Porter'; }
-  matches({ l }) { return l >= 0.12 && l < 0.20; }
+  matches({ l }) {
+    return between(l, 0.12, 0.20);
+  }
 }
 
 class NegraModeloStrategy extends MatchingStrategy {
   getName() { return 'Negra Modelo'; }
-  matches({ h, l }) { return l >= 0.20 && l < 0.35 && h > 15 && h < 40; }
+  matches({ h, l }) {
+    return between(l, 0.20, 0.35) && between(h, 15, 40);
+  }
 }
 
 class NewcastleStrategy extends MatchingStrategy {
   getName() { return 'Newcastle Brown Ale'; }
-  matches({ h, l }) { return l >= 0.35 && l < 0.45 && h > 20 && h < 40; }
+  matches({ h, l }) {
+    return between(l, 0.35, 0.45) && between(h, 20, 40);
+  }
 }
 
 class ShinerBockStrategy extends MatchingStrategy {
   getName() { return 'Shiner Bock'; }
-  matches({ h, l }) { return l >= 0.45 && l < 0.60 && h > 15 && h < 30; }
+  matches({ h, l }) {
+    return between(l, 0.45, 0.60) && between(h, 15, 30);
+  }
 }
 
 class FatTireStrategy extends MatchingStrategy {
   getName() { return 'Fat Tire Amber Ale'; }
-  matches({ h, l }) { return l >= 0.45 && l < 0.60 && h >= 30 && h < 45; }
+  matches({ h, l }) {
+    return between(l, 0.45, 0.60) && between(h, 30, 45);
+  }
 }
 
 class SmithwicksStrategy extends MatchingStrategy {
   getName() { return "Smithwick's Red Ale"; }
-  matches({ h, l }) { return l >= 0.50 && l < 0.65 && h >= 5 && h < 20; }
+  matches({ h, l }) {
+    return between(l, 0.50, 0.65) && between(h, 5, 20);
+  }
 }
 
 class SierraNevadaStrategy extends MatchingStrategy {
   getName() { return 'Sierra Nevada Pale Ale'; }
-  matches({ h, s, l }) { return l >= 0.60 && l < 0.75 && s > 0.5 && h > 35 && h < 50; }
+  matches({ h, s, l }) {
+    return between(l, 0.60, 0.75) && s > 0.5 && between(h, 35, 50);
+  }
 }
 
 class VoodooRangerStrategy extends MatchingStrategy {
   getName() { return 'Voodoo Ranger IPA'; }
-  matches({ h, s, l }) { return l >= 0.70 && l < 0.85 && s > 0.6 && h > 40 && h < 55; }
+  matches({ h, s, l }) {
+    return between(l, 0.70, 0.85) && s > 0.6 && between(h, 40, 55);
+  }
 }
 
 class BlueMoonStrategy extends MatchingStrategy {
   getName() { return 'Blue Moon'; }
-  matches({ h, s, l }) { return l >= 0.80 && l < 0.90 && s > 0.6 && h > 40 && h < 55; }
+  matches({ h, s, l }) {
+    return between(l, 0.80, 0.90) && s > 0.6 && between(h, 40, 55);
+  }
 }
 
 class HoegaardenStrategy extends MatchingStrategy {
   getName() { return 'Hoegaarden'; }
-  matches({ h, s, l }) { return l >= 0.88 && l < 0.95 && s < 0.6 && h > 45 && h < 60; }
+  matches({ h, s, l }) {
+    return between(l, 0.88, 0.95) && s < 0.6 && between(h, 45, 60);
+  }
 }
 
 class PilsnerUrquellStrategy extends MatchingStrategy {
   getName() { return 'Pilsner Urquell'; }
-  matches({ h, s, l }) { return l >= 0.85 && l < 0.92 && s > 0.7 && h > 45 && h < 60; }
+  matches({ h, s, l }) {
+    return between(l, 0.85, 0.92) && s > 0.7 && between(h, 45, 60);
+  }
 }
 
 class StandardCiderStrategy extends MatchingStrategy {
   getName() { return 'Angry Orchard / Strongbow Cider'; }
-  matches({ h, s, l }) { return l >= 0.85 && l < 0.94 && s > 0.6 && h > 45 && h < 60; }
+  matches({ h, s, l }) {
+    return between(l, 0.85, 0.94) && s > 0.6 && between(h, 45, 60);
+  }
 }
 
 class CoronaStrategy extends MatchingStrategy {
   getName() { return 'Corona Extra'; }
-  matches({ h, s, l }) { return l >= 0.92 && s > 0.8 && h > 48 && h < 60; }
+  matches({ h, s, l }) {
+    return l >= 0.92 && s > 0.8 && between(h, 48, 60);
+  }
 }
 
 class CoorsMillerStrategy extends MatchingStrategy {
   getName() { return 'Coors Light / Miller Lite'; }
-  matches({ h, s, l }) { return l >= 0.94 && s < 0.8 && h > 50 && h < 65; }
+  matches({ h, s, l }) {
+    return l >= 0.94 && s < 0.8 && between(h, 50, 65);
+  }
 }
+
 class BeerColorMatcher {
-  constructor() {
+  constructor(debug = false) {
     this.strategies = [
       new AcePerryRoseCiderStrategy(),
       new GuinnessStrategy(),
@@ -253,16 +289,25 @@ class BeerColorMatcher {
       new CoorsMillerStrategy(),
     ];
     this.defaultBeverage = 'Bud Light';
+    this.debug = debug;
   }
 
   match(hex) {
-    const hslColor = tinycolor(hex).toHsl();
+    const tiny = require('tinycolor2'); // ensure tinycolor2 is installed
+    const hslColor = tiny(hex).toHsl();
+
+    if (this.debug) {
+      console.log(`Matching HSL: h=${hslColor.h.toFixed(1)}, s=${hslColor.s.toFixed(2)}, l=${hslColor.l.toFixed(2)}`);
+    }
 
     for (const strategy of this.strategies) {
       if (strategy.matches(hslColor)) {
+        if (this.debug) console.log(`Matched: ${strategy.getName()}`);
         return strategy.getName();
       }
     }
+
+    if (this.debug) console.log('No match. Returning default.');
     return this.defaultBeverage;
   }
 }
