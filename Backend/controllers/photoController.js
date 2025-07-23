@@ -22,7 +22,6 @@ exports.uploadPhoto = async (req, res) => {
   try {
     const gcsUrl = req.file.gcsUrl;
 
-    // Download the image from GCS temporarily so we can extract colors
     const response = await axios.get(gcsUrl, { responseType: 'arraybuffer' });
     const buffer = Buffer.from(response.data, 'binary');
 
@@ -36,7 +35,7 @@ exports.uploadPhoto = async (req, res) => {
     const matchedBeer = beerMatcher.match(dominantColor);
 
     const photo = await Photo.create({
-      filePath: gcsUrl, // ✅ GCS URL saved to DB
+      filePath: gcsUrl, 
       userId: req.userId,
       title: req.body.title,
       location: req.body.location,

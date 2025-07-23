@@ -1,8 +1,9 @@
 const { Storage } = require('@google-cloud/storage');
-const path = require('path');
+
+const serviceAccount = JSON.parse(process.env.GCS_KEY_JSON);
 
 const storage = new Storage({
-  keyFilename: path.join(__dirname, '../sunsetranker-2b395cbaddb4.json'),
+  credentials: serviceAccount,
   projectId: 'sunsetranker'
 });
 
