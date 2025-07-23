@@ -1,7 +1,8 @@
 const { Storage } = require('@google-cloud/storage');
 
-const decodedKey = Buffer.from(process.env.GCS_KEY_B64, 'base64').toString('utf-8');
-const credentials = JSON.parse(decodedKey);
+const decoded = Buffer.from(process.env.GCS_KEY_B64, 'base64').toString('utf-8');
+
+const credentials = JSON.parse(decoded);
 
 const storage = new Storage({
   projectId: credentials.project_id,
