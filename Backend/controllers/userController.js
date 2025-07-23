@@ -61,6 +61,8 @@ exports.deleteAccount = async (req, res) => {
       return res.status(401).json({ error: 'Unauthorized: missing user ID' });
     }
 
+    await Photo.destroy({ where: { UserId: userId } });
+
     res.clearCookie('token', { //Deleting token
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
