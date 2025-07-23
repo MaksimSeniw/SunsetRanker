@@ -11,7 +11,6 @@
             <% photos.forEach(photo => { %>
                 <li class="sunset-card">
                     <img src="<%= photo.filePath %>" alt="Sunset: <%= photo.title %>" class="sunset-image">
-                    <%= photo.filePath %>
                     <!-- This is essentially exactly the same as the Home page but it uses getNewPhotos instead of getTopPhotos for the photo array, additionally it contains a post form for ranking -->
                     <div class="card-content">
                         <h3 class="sunset-title">
