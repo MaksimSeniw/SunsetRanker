@@ -54,12 +54,65 @@
                 <a href="/editprofile" class="edit-btn">
                     <i class="fas fa-edit"></i> Edit Profile
                 </a>
-                <form id="deleteForm" action="/api/users/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
-                    <button type="submit" class="delete-btn">
+                <form id="deleteForm" action="/api/users/delete" method="POST">
+                    <button type="button" class="delete-btn" onclick="showDeleteModal()">
                         <i class="fas fa-trash"></i> Delete Profile
                     </button>
                 </form>
             </div>
+
+            <!-- Custom Delete Confirmation Modal -->
+            <div id="deleteModal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="modal-title">Delete Profile?</h3>
+                    <p class="modal-message">
+                        Are you sure you want to delete your profile? This action cannot be undone and all your data will be permanently removed.
+                    </p>
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-cancel" onclick="hideDeleteModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="button" class="modal-btn modal-btn-confirm" onclick="confirmDelete()">
+                            <i class="fas fa-trash"></i> Delete Forever
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+<script>
+    function showDeleteModal() {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function hideDeleteModal() {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    function confirmDelete() {
+        // Submit the form
+        document.getElementById('deleteForm').submit();
+    }
+
+    // Close modal when clicking outside of it
+    document.getElementById('deleteModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            hideDeleteModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hideDeleteModal();
+        }
+    });
+</script>
