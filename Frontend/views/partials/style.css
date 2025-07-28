@@ -757,11 +757,22 @@ nav ul li a:hover::after {
 
     .gallery-container {
         padding: 20px 15px;
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     .page-title {
         font-size: 28px;
         margin-bottom: 30px;
+    }
+
+    .sunsets-list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        list-style: none;
+        align-items: center;
+        width: 100%;
     }
     
     .sunset-image {
@@ -785,7 +796,8 @@ nav ul li a:hover::after {
 
     .sunset-card {
         margin: 0 auto;
-        max-width: 100%;
+        max-width: calc(100% - 30px);
+        width: 100%;
     }
 
     .empty-state {
@@ -932,6 +944,21 @@ nav ul li a:hover::after {
     .page-title {
         font-size: 24px;
     }
+
+    .gallery-container {
+        padding: 15px 10px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .sunsets-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        list-style: none;
+        align-items: center;
+        width: 100%;
+    }
     
     .empty-state {
         padding: 40px 25px;
@@ -968,7 +995,8 @@ nav ul li a:hover::after {
 
     .sunset-card {
         margin: 0 auto;
-        max-width: 100%;
+        max-width: calc(100% - 20px);
+        width: 100%;
     }
 
     .login-container, .register-container {
