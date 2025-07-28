@@ -5,27 +5,56 @@
             <div class="profile-avatar">
                 <i class="fas fa-user"></i>
             </div>
-            <!-- Just displaying simple user info -->
+            
             <h2 class="profile-username"><%= username %></h2>
-            <div class="profile-beer">
-                <strong>First Name:</strong> <%= firstName %>
-            </div>
-            <div class="profile-beer">
-                <strong>Last Name:</strong> <%= lastName %>
-            </div>
-            <div class="profile-beer">
-                <strong>Favorite Beer:</strong> <%= favoriteBeer %>
-            </div>
-            <div class="profile-beer">
-                <strong>Date Created:</strong> <%= createdAt %>
+            
+            <div class="profile-info-grid">
+                <div class="profile-info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">First Name</span>
+                        <span class="info-value"><%= firstName %></span>
+                    </div>
+                </div>
+
+                <div class="profile-info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Last Name</span>
+                        <span class="info-value"><%= lastName %></span>
+                    </div>
+                </div>
+
+                <div class="profile-info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-beer"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Favorite Beer</span>
+                        <span class="info-value"><%= favoriteBeer %></span>
+                    </div>
+                </div>
+
+                <div class="profile-info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Member Since</span>
+                        <span class="info-value"><%= createdAt %></span>
+                    </div>
+                </div>
             </div>
 
             <div class="button-container">
                 <a href="/editprofile" class="edit-btn">
-                    Edit Profile
+                    <i class="fas fa-edit"></i> Edit Profile
                 </a>
-                <form id="deleteForm" action="/api/users/delete" method="POST" onsubmit="return confirm('Are you sure?');">
-                    <!-- POST method to remove the user, I tried using the DELETE method but I kept running to errors -->
+                <form id="deleteForm" action="/api/users/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
                     <button type="submit" class="delete-btn">
                         <i class="fas fa-trash"></i> Delete Profile
                     </button>
