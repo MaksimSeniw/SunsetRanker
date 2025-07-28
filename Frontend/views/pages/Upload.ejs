@@ -11,6 +11,10 @@
                 <% } %>
             <form class="register-form" action="/api/photos/upload" method="POST" enctype="multipart/form-data">
                 <!-- Posting an image to the DB with the required attributes -->
+                 <div class="input-group">
+                    <label for="image"><i class="fas fa-camera"></i></label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
                 <div class="input-group">
                     <label for="title"><i class="fas fa-sun"></i></label>
                     <input type="text" id="title" name="title" placeholder="Enter Sunset Title" required>
@@ -19,10 +23,6 @@
                 <div class="input-group">
                     <label for="location"><i class="fas fa-map-marker-alt"></i></label>
                     <input type="text" id="location" name="location" placeholder="Enter Location" required>
-                </div>
-                <div class="input-group">
-                    <label for="image"><i class="fas fa-camera"></i></label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
 
                 <button type="submit" class="submit-btn">Upload Sunset</button>

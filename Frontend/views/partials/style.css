@@ -783,16 +783,31 @@ nav ul li a:hover::after {
         height: 44px;
     }
 
+    .sunset-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .empty-state {
+        padding: 40px 25px;
+        margin: 0 auto;
+        max-width: calc(100% - 30px);
+    }
+
     .login-container, .register-container {
         min-height: 70vh;
         padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .login-card, .register-card {
         padding: 25px 20px;
-        margin: 0;
+        margin: 0 auto;
         max-width: 100%;
-        width: 100%;
+        width: calc(100% - 30px);
+        box-sizing: border-box;
     }
     
     .login-card h1, .register-card h1 {
@@ -818,9 +833,19 @@ nav ul li a:hover::after {
         padding-top: 15px;
     }
 
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 20px;
+    }
+
     .profile-card {
-        margin: 20px;
+        margin: 0 auto;
         padding: 30px;
+        max-width: 400px;
+        width: calc(100% - 40px);
     }
 
     .profile-username {
@@ -846,9 +871,19 @@ nav ul li a:hover::after {
         max-width: 200px;
     }
 
+    .edit-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 20px;
+    }
+
     .edit-card {
-        margin: 20px;
+        margin: 0 auto;
         padding: 30px;
+        max-width: 450px;
+        width: calc(100% - 40px);
     }
     
     .edit-card h1 {
@@ -900,6 +935,8 @@ nav ul li a:hover::after {
     
     .empty-state {
         padding: 40px 25px;
+        margin: 0 auto;
+        max-width: calc(100% - 20px);
     }
     
     .empty-state i {
@@ -929,12 +966,22 @@ nav ul li a:hover::after {
         padding: 8px;
     }
 
+    .sunset-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
     .login-container, .register-container {
         padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .login-card, .register-card {
         padding: 20px 15px;
+        margin: 0 auto;
+        width: calc(100% - 20px);
     }
     
     .login-card h1, .register-card h1 {
@@ -954,5 +1001,17 @@ nav ul li a:hover::after {
         height: 45px;
         padding-left: 60px;
         font-size: 16px;
+    }
+
+    .profile-card {
+        margin: 0 auto;
+        padding: 25px 20px;
+        width: calc(100% - 20px);
+    }
+
+    .edit-card {
+        margin: 0 auto;
+        padding: 25px 20px;
+        width: calc(100% - 20px);
     }
 }
